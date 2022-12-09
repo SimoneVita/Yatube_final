@@ -152,7 +152,7 @@ class PostFormTests(TestCase):
         )
         self.assertTrue(
             Comment.objects.filter(
-            text=form_data_authorized['text'],
+                text=form_data_authorized['text'],
             ).exists()
         )
         comments_count_guest = Comment.objects.all().count()
@@ -177,7 +177,7 @@ class PostFormTests(TestCase):
         )
         self.assertFalse(
             Comment.objects.filter(
-            text=form_data_guest['text'],
+                text=form_data_guest['text'],
             ).exists()
         )
 
