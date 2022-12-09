@@ -22,12 +22,12 @@ class PostFormTests(TestCase):
         cls.user_dif = User.objects.create_user(username='Name1Surname1')
         cls.follower = User.objects.create_user(username='Follower')
         cls.small_gif = (
-             b'\x47\x49\x46\x38\x39\x61\x02\x00'
-             b'\x01\x00\x80\x00\x00\x00\x00\x00'
-             b'\xFF\xFF\xFF\x21\xF9\x04\x00\x00'
-             b'\x00\x00\x00\x2C\x00\x00\x00\x00'
-             b'\x02\x00\x01\x00\x00\x02\x02\x0C'
-             b'\x0A\x00\x3B'
+            b'\x47\x49\x46\x38\x39\x61\x02\x00'
+            b'\x01\x00\x80\x00\x00\x00\x00\x00'
+            b'\xFF\xFF\xFF\x21\xF9\x04\x00\x00'
+            b'\x00\x00\x00\x2C\x00\x00\x00\x00'
+            b'\x02\x00\x01\x00\x00\x02\x02\x0C'
+            b'\x0A\x00\x3B'
         )
         cls.uploaded = SimpleUploadedFile(
             name='small.gif',
@@ -146,8 +146,12 @@ class PostFormTests(TestCase):
             response,
             reverse('posts:post_detail', kwargs={'post_id': self.post.id})
         )
-        self.assertEqual(Comment.objects.count(), comments_count_authorized + 1)
-        self.assertTrue(Comment.objects.filter(
+        self.assertEqual(
+            Comment.objects.count(),
+            comments_count_authorized + 1
+        )
+        self.assertTrue(
+            Comment.objects.filter(
             text=form_data_authorized['text'],
             ).exists()
         )
@@ -156,7 +160,10 @@ class PostFormTests(TestCase):
             'text': 'Тестовый комментарий 2',
         }
         response = self.guest_client.post(
-            reverse('posts:add_comment', kwargs={'post_id': self.post.id}),
+            reverse(
+                'posts:add_comment',
+                kwargs={'post_id': self.post.id}
+            ),
             data=form_data_guest,
             follow=True
         )
@@ -164,8 +171,12 @@ class PostFormTests(TestCase):
             response,
             reverse('users:login')
         )
-        self.assertEqual(Comment.objects.all().count(), comments_count_guest)
-        self.assertFalse(Comment.objects.filter(
+        self.assertEqual(
+            Comment.objects.all().count(),
+            comments_count_guest,
+        )
+        self.assertFalse(
+            Comment.objects.filter(
             text=form_data_guest['text'],
             ).exists()
         )
@@ -214,16 +225,15 @@ class PostFormTests(TestCase):
             data=post_form_data,
             follow=True
         )
-
-        follow = Follow.objects.last()
-        response_0 = self.authorized_follower.get(reverse('posts:follow_index'))
+        response_0 = self.authorized_follower.get(
+            reverse('posts:follow_index')
+        )
         first_object = response_0.context['page_obj'][0]
         post_text_0 = first_object.text
         self.assertEqual(post_text_0, post_form_data['text'])
-        response_1 = self.authorized_dif.get(reverse('posts:follow_index'))
+        response_1 = self.authorized_dif.get(
+            reverse('posts:follow_index')
+        )
         second_object = response_1.context['page_obj'][0]
         post_text_1 = second_object.text
         self.assertNotEqual(post_text_0, post_text_1)
-
-
-

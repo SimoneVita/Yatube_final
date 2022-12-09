@@ -84,7 +84,6 @@ class StaticURLTests(TestCase):
 
     def test_urls_uses_correct_template(self):
         """Проверка правильного применения шаблонов на URL-адресе."""
-        # Шаблоны по адресам
         templates_url_names = {
             '/': 'posts/index.html',
             '/group/1/': 'posts/group_list.html',

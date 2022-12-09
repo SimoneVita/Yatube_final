@@ -11,7 +11,7 @@ class ViewsTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.guest_client = Client()     
+        cls.guest_client = Client()
 
     @classmethod
     def tearDownClass(cls):

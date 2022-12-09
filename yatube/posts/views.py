@@ -35,7 +35,6 @@ def profile(request, username):
     posts = Post.objects.filter(author=author)
     posts_num = posts.count()
     page_obj = pagination(request, posts)
-    
     context = {
         'author': author,
         'posts_num': posts_num,
@@ -113,7 +112,7 @@ def post_edit(request, post_id):
 
 def add_comment(request, post_id):
     user = request.user
-    post = get_object_or_404(Post, pk=post_id) 
+    post = get_object_or_404(Post, pk=post_id)
     if user.is_authenticated:
         form = CommentForm(request.POST or None)
         if form.is_valid():
@@ -130,7 +129,7 @@ def follow_index(request):
     if user.is_authenticated:
         author = Post.objects.filter(author__following__user=user)
         title = 'Ваши подписки'
-        page_obj = pagination(request, author) 
+        page_obj = pagination(request, author)
         context = {
             'page_obj': page_obj,
             'title': title,
@@ -148,7 +147,7 @@ def profile_follow(request, username):
             return redirect('posts:profile', username=author)
         return redirect('posts:profile', username=author)
     return redirect('users:login')
-        
+
 
 def profile_unfollow(request, username):
     user = request.user
