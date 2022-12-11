@@ -127,7 +127,11 @@ class PostFormTests(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('posts:index')
+            reverse(
+                'users:login'
+            ) + '?next=' + reverse(
+                'posts:post_create'
+            )
         )
         self.assertEqual(Post.objects.all().count(), posts_count)
 
@@ -169,7 +173,10 @@ class PostFormTests(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('users:login')
+            reverse('users:login') + '?next=' + reverse(
+                'posts:add_comment',
+                kwargs={'post_id': self.post.id}
+            )
         )
         self.assertEqual(
             Comment.objects.all().count(),

@@ -65,7 +65,13 @@ class StaticURLTests(TestCase):
         """Страница создания поста открывается только авторизованнюму"""
         response = self.guest_client.get('/create/', follow=True)
         self.assertRedirects(
-            response, '/')
+            response,
+            reverse(
+                'users:login'
+            ) + '?next=' + reverse(
+                'posts:post_create'
+            )
+        )
         response = self.authorized_client.get('/create/')
         self.assertEqual(response.status_code, 200)
 
