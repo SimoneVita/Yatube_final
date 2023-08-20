@@ -1,3 +1,4 @@
-# hw05_final
-
-[![CI](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml)
+Проект Yatube - это социальная сеть для публикации дневников.
+Проект написан с использованием языков Python и HTML.
+В данном проекте реализованы следующие технологии: Python 3, Django, SQLite3, pytest.
+В данном проекте используется пагинация постов и кэширование. Регистрация реализована с верификацией данных, сменой и восстановлением пароля через почту, написаны тесты, проверяющие работу сервиса.
